@@ -48,6 +48,10 @@ const Header = () => {
       pageURL: "/contact",
     },
     {
+      headerTitle: "Login",
+      pageURL: "/signIn",
+    },
+    {
       headerTitle: "Sign Up",
       pageURL: "/signUp",
     },

@@ -8,6 +8,7 @@ import Error from "./Components/Error/Error";
 import AvailableRides from "./Components/Destination/AvailableRides";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import SignIn from "./Components/Login/SignIn";
 export const UserContext = createContext();
 export const LocationContext = createContext();
 
@@ -39,6 +40,9 @@ function App() {
               </Route>
               <Route path="/signUp">
                 <SignUp></SignUp>
+              </Route>
+              <Route path="/signIn">
+                <SignIn />
               </Route>
               <PrivateRoute path="/destination/:rideId">
                 <Destination />

@@ -13,7 +13,6 @@ import { UserContext } from "../../App";
 import { Link } from "react-router-dom";
 import { useHistory, useLocation } from "react-router";
 import {
-  createUserWithEmailAndPassword,
   handleGoogleSignIn,
   initializeLoginFramework,
   signInWithEmailAndPassword,
@@ -21,7 +20,7 @@ import {
 
 initializeLoginFramework();
 
-const SignUp = () => {
+const SignIn = () => {
   const classes = LoginStyles();
   // use context api from app.js////////////////////
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
@@ -29,7 +28,6 @@ const SignUp = () => {
   // use form hook destructuring//
   const {
     register,
-    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -42,29 +40,19 @@ const SignUp = () => {
   let { from } = location.state || { from: { pathname: "/" } };
 
   // for new user registration//
-  const [newUser] = useState(true);
+  const [newUser] = useState(false);
   // default //
   const [user, setUser] = useState({
     isSignedIn: false,
     name: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    error: "",
   });
 
   //handle submit function //
   const onSubmit = (e) => {
-    if (newUser && user.email && user.password) {
-      createUserWithEmailAndPassword(user.name, user.email, user.password)
-        .then((res) => {
-          handleResponse(res, true);
-          console.log(user.email, user.password);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    //   // if not new user, then sign in using only email and password//
+    //  not new user, so sign in using only email and password//
     if (!newUser && user.email && user.password) {
       signInWithEmailAndPassword(user.email, user.password)
         .then((res) => {
@@ -84,29 +72,6 @@ const SignUp = () => {
     setUser(newUserInfo);
   };
 
-  // without react hook form //
-  // const handleBlur = (e) => {
-  //   // let isFieldValid = true;
-  //   if (e.target.name === "email") {
-  //     isFieldValid = /\S+@\S+\.\S+/.test(e.target.value);
-  //   }
-  //   if (e.target.name === "password") {
-  //     const isPasswordValid = e.target.value.length > 6;
-  //     const passwordHasNumber = /\d{1}/.test(e.target.value);
-  //     isFieldValid = isPasswordValid && passwordHasNumber;
-  //   }
-  //   if (e.target.name === "confirmPassword") {
-  //     if (user.password !== user.confirmPassword) {
-  //       user.confirmPasswordError = "Passwords should match!";
-  //     }
-  //   }
-  //   if (isFieldValid) {
-  //     const newUserInfo = { ...user };
-  //     newUserInfo[e.target.name] = e.target.value;
-  //     setUser(newUserInfo);
-  //   }
-  // };
-
   //google sign in handler by import//
   const googleSignIn = () => {
     handleGoogleSignIn().then((res) => {
@@ -115,15 +80,6 @@ const SignUp = () => {
       handleResponse(res, true);
     });
   };
-  //google sign out handler by import//
-  // const signOut = () => {
-  //   handleSignOut().then((res) => {
-  //     setUser(res);
-  //     setLoggedInUser(res);
-  //     handleResponse(res, false);
-  //   });
-  // };
-  /////////////////////////////////////////
 
   // function for handling response //
   const handleResponse = (res, redirect) => {
@@ -134,7 +90,6 @@ const SignUp = () => {
     }
   };
   /////////////////////////////////////////////
-
   return (
     <>
       <Container component="main" maxWidth="xs">
@@ -145,7 +100,7 @@ const SignUp = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign {newUser ? "Up" : "In"}
+            Sign In
           </Typography>
 
           {/* sign up/in form part start */}
@@ -154,21 +109,6 @@ const SignUp = () => {
             onChange={handleChange}
             className={classes.form}
           >
-            {newUser && (
-              <TextField
-                name="name"
-                value={loggedInUser.name}
-                label="Full Name"
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                autoFocus
-                id="name"
-                {...register("name", { required: "*Full Name is required" })}
-                error={Boolean(errors.name)}
-                helperText={errors.name?.message}
-              />
-            )}
             <TextField
               name="email"
               value={loggedInUser.email}
@@ -210,32 +150,10 @@ const SignUp = () => {
               helperText={errors.password?.message}
             />
 
-            {newUser && (
-              <TextField
-                name="confirmPassword"
-                value={loggedInUser.confirmPassword}
-                label="Confirm Password"
-                variant="outlined"
-                margin="normal"
-                type="password"
-                id="confirmPassword"
-                fullWidth
-                {...register("confirmPassword", {
-                  required: "*Confirm Password is required",
-                  validate: (value) =>
-                    value === getValues("password") ||
-                    "Password doesn't match!",
-                })}
-                error={Boolean(errors.confirmPassword)}
-                helperText={errors.confirmPassword?.message}
-              />
-            )}
-
             <br />
             <Typography variant="body1">
-              Already have an account? <Link to="/signIn">Sign In</Link>
+              Don't have an account? <Link to="/signUp">Sign Up</Link>
             </Typography>
-
             <Button
               type="submit"
               fullWidth
@@ -243,7 +161,7 @@ const SignUp = () => {
               color="primary"
               className={classes.submit}
             >
-              Sign Up
+              Sign In
             </Button>
 
             {/*form part end */}
@@ -261,13 +179,7 @@ const SignUp = () => {
               Sign in with Google
             </Button>
             <br />
-            <Typography
-              variant="subtitle1"
-              justify="center"
-              style={{ color: "red" }}
-            >
-              {user.error}
-            </Typography>
+            <p style={{ color: "red" }}>{user.error}</p>
           </form>
         </div>
       </Container>
@@ -275,4 +187,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
