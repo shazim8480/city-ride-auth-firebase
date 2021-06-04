@@ -5,9 +5,6 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { LocationContext } from "../../App";
 import { useParams } from "react-router";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import rideData from "../../fakeData/rideData";
 
 const useStyles = makeStyles((theme) => ({

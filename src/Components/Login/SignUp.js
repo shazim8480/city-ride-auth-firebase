@@ -120,13 +120,13 @@ const SignUp = () => {
     });
   };
   //google sign out handler by import//
-  const signOut = () => {
-    handleSignOut().then((res) => {
-      setUser(res);
-      setLoggedInUser(res);
-      handleResponse(res, false);
-    });
-  };
+  // const signOut = () => {
+  //   handleSignOut().then((res) => {
+  //     setUser(res);
+  //     setLoggedInUser(res);
+  //     handleResponse(res, false);
+  //   });
+  // };
   /////////////////////////////////////////
 
   // function for handling response //
@@ -291,6 +291,14 @@ const SignUp = () => {
             >
               Sign in with Google
             </Button>
+            <br />
+            <Typography
+              variant="subtitle1"
+              justify="center"
+              style={{ color: "red" }}
+            >
+              {user.error}
+            </Typography>
           </form>
         </div>
       </Container>

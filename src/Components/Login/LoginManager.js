@@ -38,28 +38,28 @@ export const handleGoogleSignIn = () => {
 };
 
 // user sign out method //
-export const handleSignOut = () => {
-  return (
-    firebase
-      .auth()
-      .signOut()
-      .then((res) => {
-        const signedOutUser = {
-          isLoggedIn: false,
-          name: "",
-          email: "",
-          photo: "",
-        };
-        return signedOutUser;
-        // console.log(res);
-      })
+// export const handleSignOut = () => {
+//   return (
+//     firebase
+//       .auth()
+//       .signOut()
+//       .then((res) => {
+//         const signedOutUser = {
+//           isLoggedIn: false,
+//           name: "",
+//           email: "",
+//           photo: "",
+//         };
+//         return signedOutUser;
+//         // console.log(res);
+//       })
 
-      // handle error//
-      .catch((err) => {
-        console.log(err);
-      })
-  );
-};
+//       // handle error//
+//       .catch((err) => {
+//         console.log(err);
+//       })
+//   );
+// };
 
 ////////////////////////////////////////////////////////////////
 

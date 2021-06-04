@@ -101,7 +101,10 @@ const Header = () => {
                   {headerItems.map((headerItem) => {
                     const { headerTitle, pageURL } = headerItem;
                     return (
-                      <MenuItem onClick={() => handleMenuClick(pageURL)}>
+                      <MenuItem
+                        key={headerTitle}
+                        onClick={() => handleMenuClick(pageURL)}
+                      >
                         {headerTitle}
                       </MenuItem>
                     );
@@ -126,6 +129,7 @@ const Header = () => {
                   return (
                     <Button
                       className={classes.navBtn}
+                      key={pageURL}
                       onClick={() => handleMenuClick(pageURL)}
                       size="large"
                     >

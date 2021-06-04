@@ -25,7 +25,7 @@ const Home = () => {
             <Grid container spacing={4} justify="center">
               {rides.map((rideCategory) => (
                 <Category
-                  key={rideCategory.rideId}
+                  key={rideCategory.id}
                   category={rideCategory}
                 ></Category>
               ))}

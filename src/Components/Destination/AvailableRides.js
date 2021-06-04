@@ -84,7 +84,7 @@ const AvailableRides = () => {
   //FINDING THE individual ride id for showing the details for each ride
   const bookingData = rideData.find((rd) => rd.id === rideId);
   console.log(bookingData);
-  const [location, setLocation] = useContext(LocationContext);
+  const [location] = useContext(LocationContext);
   // modal //
   const [open, setOpen] = React.useState(false);
   const DialogTitle = withStyles(useStyles)((props) => {
