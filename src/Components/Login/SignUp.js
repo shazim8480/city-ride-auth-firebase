@@ -18,7 +18,6 @@ import { useHistory, useLocation } from "react-router";
 import {
   createUserWithEmailAndPassword,
   handleGoogleSignIn,
-  handleSignOut,
   initializeLoginFramework,
   signInWithEmailAndPassword,
 } from "./LoginManager.js";
